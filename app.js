@@ -2,9 +2,11 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     cors = require('cors');
+var Sequelize = require('sequelize')
 
 // Objeto global de la app
 var app = express();
+
 
 // Configuración de middlewares
 app.use(cors());
@@ -21,6 +23,18 @@ app.use(function (req, res, next) {
     next(err);
 });
 
+const sequelize = new Sequelize('bjxwq0uwifz3tl7mxfmk', 'urikwzjpplzzlfmn','Mb0IQrCVF8Sh4iK2i73G', {
+    host: 'bjxwq0uwifz3tl7mxfmk-mysql.services.clever-cloud.com',
+    dialect: 'mysql',
+});
+
+sequelize.authenticate()
+    .then(() => {
+        console.log('Its alive!!!!');
+    })
+    .catch(err => {
+        console.log('No se conecto :(')
+    })
 // Iniciando el servidor...
 var server = app.listen(process.env.PORT || 3000, function () {
     console.log('Escuchando en el puerto ' + server.address().port);
